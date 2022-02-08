@@ -1,4 +1,4 @@
-import logo from './assets/img/pizza-logo.svg';
+import logo from './../assets/img/pizza-logo.svg';
 import Button from './Button';
 
 const HeaderLogo = () => {
@@ -22,7 +22,7 @@ const Header = () => {
     <div className="header">
       <div className="container">
         <HeaderLogo />
-        <Button clickHandle={clickHandle}>
+        <Button className="button--cart" clickHandle={clickHandle}>
           <span>520 ₽</span>
           <div className="button__delimiter"></div>
           <svg
