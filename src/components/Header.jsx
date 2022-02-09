@@ -1,4 +1,5 @@
-import logo from './../assets/img/pizza-logo.svg';
+import { Link, useNavigate } from 'react-router-dom';
+import logo from '../assets/img/pizza-logo.svg';
 import Button from './Button';
 
 const HeaderLogo = () => {
@@ -14,14 +15,16 @@ const HeaderLogo = () => {
 };
 
 const Header = () => {
-  const clickHandle = (e) => {
-    console.log(e);
-    // redirect to cart
+  const navigate = useNavigate();
+  const clickHandle = () => {
+    navigate('/cart');
   };
   return (
     <div className="header">
       <div className="container">
-        <HeaderLogo />
+        <Link to="/">
+          <HeaderLogo />
+        </Link>
         <Button className="button--cart" clickHandle={clickHandle}>
           <span>520 ₽</span>
           <div className="button__delimiter"></div>
