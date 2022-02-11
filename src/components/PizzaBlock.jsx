@@ -1,24 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
+import cn from 'classnames';
+import PropTypes from 'prop-types';
 
-function PizzaBlock({ pizza }) {
-  console.log(pizza);
+function PizzaBlock({ imageUrl, name, price, sizes, types }) {
+  const [activeType, setActiveType] = useState(types[0]);
+  const [activeSize, setActiveSize] = useState(0);
+
+  const availableTypes = ['тонкое', 'традиционное'];
+  const availableSize = [26, 30, 40];
+
+  const onSelectType = (ind) => setActiveType(ind);
+  const onSelectSize = (ind) => setActiveSize(ind);
+
   return (
     <div className="pizza-block">
-      <img className="pizza-block__image" src={pizza.imageUrl} alt="Pizza" />
-      <h4 className="pizza-block__title">{pizza.name}</h4>
+      <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+      <h4 className="pizza-block__title">{name}</h4>
       <div className="pizza-block__selector">
         <ul>
-          <li className="active">тонкое</li>
-          <li>традиционное</li>
+          {types &&
+            availableTypes.map((type, ind) => (
+              <li
+                className={cn({
+                  active: activeType === ind,
+                  disabled: !types.includes(ind),
+                })}
+                key={`${type}_${ind}`}
+                onClick={() => onSelectType(ind)}>
+                {type}
+              </li>
+            ))}
         </ul>
         <ul>
-          <li className="active">26 см.</li>
-          <li>30 см.</li>
-          <li>40 см.</li>
+          {sizes &&
+            availableSize.map((size, ind) => (
+              <li
+                className={cn({
+                  active: activeSize === ind,
+                  disabled: !sizes.includes(size),
+                })}
+                key={`${size}_${ind}`}
+                onClick={() => onSelectSize(ind)}>
+                {size} см.
+              </li>
+            ))}
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">от {pizza.price} ₽</div>
+        <div className="pizza-block__price">от {price} ₽</div>
         <div className="button button--outline button--add">
           <svg
             width="12"
@@ -38,5 +67,13 @@ function PizzaBlock({ pizza }) {
     </div>
   );
 }
+
+PizzaBlock.propTypes = {
+  imageUrl: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  sizes: PropTypes.arrayOf(PropTypes.number).isRequired,
+  types: PropTypes.arrayOf(PropTypes.number).isRequired,
+};
 
 export default PizzaBlock;

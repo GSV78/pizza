@@ -5,5 +5,5 @@ const instance = axios.create({
 });
 
 export const getPizzas = () => {
-  return instance.get('db.json').then((responce) => responce.data.pizzas);
+  return instance.get('db.json').then((responce) => responce.data);
 };
