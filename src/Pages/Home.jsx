@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
-import { getPizzas } from '../api/api';
+import { getPizzasFromServer } from '../api/api';
 import { Categories, SortPopup, PizzaBlock } from '../components';
 
 function Home() {
   const [pizzas, setPizzas] = useState([]);
 
   useEffect(async () => {
-    let data = await getPizzas();
+    let data = await getPizzasFromServer();
     setPizzas(data.pizzas);
   }, []);
 
