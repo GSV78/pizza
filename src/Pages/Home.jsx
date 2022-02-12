@@ -1,26 +1,34 @@
-import { useEffect, useState } from 'react';
-import { getPizzasFromServer } from '../api/api';
+import { useEffect } from 'react';
 import { Categories, SortPopup, PizzaBlock } from '../components';
 
-function Home() {
-  const [pizzas, setPizzas] = useState([]);
-
-  useEffect(async () => {
-    let data = await getPizzasFromServer();
-    setPizzas(data.pizzas);
+function Home({
+  pizzas,
+  pizzasFilted,
+  filter,
+  categories,
+  sortBy,
+  pizzasFiltering,
+  getPizzas,
+  ...rest
+}) {
+  useEffect(() => {
+    getPizzas();
   }, []);
-
+  debugger;
   return (
     <div className="container">
       <div className="content__top">
-        <Categories items={['Мясные', 'Вегетарианские', 'Гриль', 'Острые', 'Закрытые']} />
-        <SortPopup items={['популярности', 'цене', 'алфавиту']} />
+        <Categories items={categories} pizzasFiltering={pizzasFiltering} filter={filter} />
+        <SortPopup items={sortBy} {...rest} />
       </div>
-      <h2 className="content__title">Все пиццы</h2>
+      <h2 className="content__title">
+        {(!filter && 'Все') || (filter && categories[filter])} пиццы
+      </h2>
       <div className="content__items">
-        {pizzas.map((pizza) => {
-          return <PizzaBlock key={pizza.id} {...pizza} />;
-        })}
+        {pizzas &&
+          pizzas.map((pizza) => {
+            return <PizzaBlock key={pizza.id} {...pizza} />;
+          })}
       </div>
     </div>
   );

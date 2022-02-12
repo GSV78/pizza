@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import { Header } from './components';
-import { Home, Cart } from './Pages';
+import { HomeContainer, Cart } from './Pages';
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
       <Header />
       <div className="content">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<HomeContainer />} />
           <Route path="/cart" element={<Cart />} />
         </Routes>
       </div>

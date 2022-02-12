@@ -1,14 +1,22 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-function SortPopupIsVisible({ items }) {
+function SortPopup({ items, alphabetSort, priceSort, ratingSort }) {
   const [popupIsVisible, setPopupIsVisible] = useState(false);
   const [activeItem, setActiveItem] = useState(0);
   const sortRef = useRef();
+  
 
   const togglePopupIsVisible = () => setPopupIsVisible(!popupIsVisible);
   const onSelectItem = (ind) => {
     setActiveItem(ind);
     setPopupIsVisible(false);
+    if (ind === 0) {
+      ratingSort()
+    } else if (ind === 1) {
+      priceSort()
+    } else {
+      alphabetSort()
+    }
   };
 
   const activeLabel = items[activeItem];
@@ -60,4 +68,4 @@ function SortPopupIsVisible({ items }) {
   );
 }
 
-export default SortPopupIsVisible;
+export default SortPopup;
