@@ -1,5 +1,7 @@
 import { connect } from 'react-redux';
+
 import Home from './Home';
+
 import {
   alphabetSort,
   priceSort,
@@ -20,11 +22,11 @@ const mstp = (state) => {
 };
 
 const HomeContainer = connect(mstp, {
+  getPizzas,
   alphabetSort,
   priceSort,
   ratingSort,
   pizzasFiltering,
-  getPizzas,
 })(Home);
 
 export default HomeContainer;

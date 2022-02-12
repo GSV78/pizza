@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
 
-function Categories({ items, onSelectItem }) {
+function Categories({ items, pizzasFiltering }) {
   const [activeItem, setActiveItem] = useState(null);
+
+  const onSelectFilter = (ind) => {
+    setActiveItem(ind);
+    pizzasFiltering(ind);
+  };
 
   return (
     <div>
       <div className="categories">
         <ul>
-          <li className={activeItem === null ? 'active' : ''} onClick={() => setActiveItem(null)}>
+          <li className={activeItem === null ? 'active' : ''} onClick={() => onSelectFilter(null)}>
             Все
           </li>
           {items &&
@@ -15,7 +20,7 @@ function Categories({ items, onSelectItem }) {
               <li
                 className={activeItem === ind ? 'active' : ''}
                 key={`${pizzaType}_${ind}`}
-                onClick={() => setActiveItem(ind)}>
+                onClick={() => onSelectFilter(ind)}>
                 {pizzaType}
               </li>
             ))}
