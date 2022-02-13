@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import cn from 'classnames';
 import PropTypes from 'prop-types';
+import Button from './Button';
 
-function PizzaBlock({ imageUrl, name, price, sizes, types }) {
+function PizzaBlock({ imageUrl, name, price, sizes, types, addPizzaToCart, chosenPizzas }) {
   const [activeType, setActiveType] = useState(types[0]);
   const [activeSize, setActiveSize] = useState(0);
 
@@ -11,6 +12,23 @@ function PizzaBlock({ imageUrl, name, price, sizes, types }) {
 
   const onSelectType = (ind) => setActiveType(ind);
   const onSelectSize = (ind) => setActiveSize(ind);
+
+  const actualPrice =
+    price + activeSize * 0.4 * price - 0.2 * activeType * (price + activeSize * 0.5 * price);
+  const roundedActualPrice = Math.ceil(actualPrice + 10 - (actualPrice % 10));
+
+  const howMany = chosenPizzas.filter((obj) => obj.name === name).length;
+
+  const chosenPizza = {
+    name,
+    imageUrl,
+    priceForOne: roundedActualPrice,
+    type: availableTypes[activeType],
+    size: availableSize[activeSize],
+  };
+  const onAddToCart = () => {
+    addPizzaToCart(chosenPizza);
+  };
 
   return (
     <div className="pizza-block">
@@ -47,8 +65,11 @@ function PizzaBlock({ imageUrl, name, price, sizes, types }) {
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">от {price} ₽</div>
-        <div className="button button--outline button--add">
+        <div className="pizza-block__price">
+          {roundedActualPrice}
+          {'  ₽'}
+        </div>
+        <Button clickHandle={onAddToCart} className="button button--outline button--add">
           <svg
             width="12"
             height="12"
@@ -61,8 +82,8 @@ function PizzaBlock({ imageUrl, name, price, sizes, types }) {
             />
           </svg>
           <span>Добавить</span>
-          <i>1</i>
-        </div>
+          {howMany > 0 ? <i>{howMany}</i> : null}
+        </Button>
       </div>
     </div>
   );

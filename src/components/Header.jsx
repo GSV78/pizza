@@ -14,19 +14,20 @@ const HeaderLogo = () => {
   );
 };
 
-const Header = () => {
+const Header = ({ totalPrice, totalNumberOfPizzasInCart }) => {
   const navigate = useNavigate();
   const clickHandle = () => {
     navigate('/cart');
   };
+
   return (
     <div className="header">
       <div className="container">
         <Link to="/">
           <HeaderLogo />
         </Link>
-        <Button className="button--cart" clickHandle={clickHandle}>
-          <span>520 ₽</span>
+        <Button buttonCart clickHandle={clickHandle}>
+          <span>{totalPrice} ₽</span>
           <div className="button__delimiter"></div>
           <svg
             width="18"
@@ -56,7 +57,7 @@ const Header = () => {
               strokeLinejoin="round"
             />
           </svg>
-          <span>3</span>
+          <span>{totalNumberOfPizzasInCart}</span>
         </Button>
       </div>
     </div>

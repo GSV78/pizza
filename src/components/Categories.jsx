@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
 function Categories({ items, pizzasFiltering }) {
   const [activeItem, setActiveItem] = useState(null);

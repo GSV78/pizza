@@ -4,13 +4,18 @@ import PropTypes from 'prop-types';
 
 function Home({
   pizzas,
+  chosenPizzas,
+  isLoaded,
   pizzasFiltered,
   filter,
   categories,
   sortBy,
   pizzasFiltering,
   getPizzas,
-  ...rest
+  alphabetSort,
+  priceSort,
+  ratingSort,
+  addPizzaToCart,
 }) {
   useEffect(() => {
     getPizzas();
@@ -20,32 +25,60 @@ function Home({
     <div className="container">
       <div className="content__top">
         <Categories items={categories} pizzasFiltering={pizzasFiltering} filter={filter} />
-        <SortPopup items={sortBy} {...rest} />
+        <SortPopup
+          items={sortBy}
+          alphabetSort={alphabetSort}
+          priceSort={priceSort}
+          ratingSort={ratingSort}
+        />
       </div>
       <h2 className="content__title">{filter === null ? 'Все' : categories[filter]} пиццы</h2>
       <div className="content__items">
-        {filter === null
-          ? pizzas &&
-            pizzas.map((pizza, ind) => {
-              return <PizzaBlock key={`${pizza.id}_${ind}`} {...pizza} />;
-            })
-          : pizzasFiltered &&
-            pizzasFiltered.map((pizza, ind) => {
-              return <PizzaBlock key={`${pizza.id}_${ind}`} {...pizza} />;
-            })}
+        {!isLoaded ? (
+          <span>Загрузка...</span>
+        ) : filter === null ? (
+          pizzas &&
+          pizzas.map((pizza, ind) => {
+            return (
+              <PizzaBlock
+                key={`${pizza.id}_${ind}`}
+                {...pizza}
+                addPizzaToCart={addPizzaToCart}
+                chosenPizzas={chosenPizzas}
+              />
+            );
+          })
+        ) : (
+          pizzasFiltered &&
+          pizzasFiltered.map((pizza, ind) => {
+            return (
+              <PizzaBlock
+                key={`${pizza.id}_${ind}`}
+                {...pizza}
+                addPizzaToCart={addPizzaToCart}
+                chosenPizzas={chosenPizzas}
+              />
+            );
+          })
+        )}
       </div>
     </div>
   );
 }
 
 Home.propTypes = {
-  pizzas: PropTypes.array.isRequired,
-  pizzasFiltered: PropTypes.array.isRequired,
+  pizzas: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isLoaded: PropTypes.bool.isRequired,
+  pizzasFiltered: PropTypes.arrayOf(PropTypes.object).isRequired,
   filter: PropTypes.number,
-  categories: PropTypes.array.isRequired,
-  sortBy: PropTypes.array.isRequired,
+  categories: PropTypes.arrayOf(PropTypes.string).isRequired,
+  sortBy: PropTypes.arrayOf(PropTypes.string).isRequired,
   pizzasFiltering: PropTypes.func.isRequired,
   getPizzas: PropTypes.func.isRequired,
+  alphabetSort: PropTypes.func.isRequired,
+  priceSort: PropTypes.func.isRequired,
+  ratingSort: PropTypes.func.isRequired,
+  addPizzaToCart: PropTypes.func.isRequired,
 };
 
 export default Home;

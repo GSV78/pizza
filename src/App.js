@@ -1,15 +1,15 @@
 import { Route, Routes } from 'react-router-dom';
-import { Header } from './components';
-import { HomeContainer, Cart } from './Pages';
+import { HeaderContainer } from './components';
+import { HomeContainer, CartContainer } from './Pages';
 
 function App() {
   return (
     <div className="wrapper">
-      <Header />
+      <HeaderContainer />
       <div className="content">
         <Routes>
           <Route path="/" element={<HomeContainer />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/cart" element={<CartContainer />} />
         </Routes>
       </div>
     </div>
