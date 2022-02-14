@@ -22,9 +22,18 @@ const cartReducer = (state = initialState, action) => {
       };
     }
     case REMOVE_PIZZA_FROM_CART: {
+      const findAndRemove = (obj) => {
+        for (let i = 0; i < state.chosenPizzas.length; i++) {
+          if (JSON.stringify(state.chosenPizzas[i]) === JSON.stringify(obj)) {
+            state.chosenPizzas.splice(i, 1);
+            break;
+          }
+        }
+        return [...state.chosenPizzas];
+      };
       return {
         ...state,
-        chosenPizzas: state.chosenPizzas.filter((obj) => obj !== action.removedPizza),
+        chosenPizzas: findAndRemove(action.removedPizza),
         totalNumberOfPizzasInCart: state.totalNumberOfPizzasInCart - 1,
         totalPrice: state.totalPrice - action.removedPizza.priceForOne,
       };

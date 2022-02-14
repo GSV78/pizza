@@ -1,9 +1,29 @@
 import React from 'react';
 
-function CartItem({ pizzaName, imageUrl, price, type, size, count }) {
-  const plus = () => count++;
+function CartItem({
+  pizzaName,
+  imageUrl,
+  price,
+  type,
+  size,
+  count,
+  addPizzaToCart,
+  removePizzaFromCart,
+}) {
+  const chosenPizza = {
+    name: pizzaName,
+    imageUrl,
+    priceForOne: price,
+    type,
+    size,
+  };
+  const onAddToCart = () => {
+    addPizzaToCart(chosenPizza);
+  };
 
-  const minus = () => count--;
+  const onRemoveFromCart = () => {
+    removePizzaFromCart(chosenPizza);
+  };
 
   return (
     <div className="cart__item">
@@ -18,7 +38,7 @@ function CartItem({ pizzaName, imageUrl, price, type, size, count }) {
       </div>
       <div className="cart__item-count">
         <div
-          onClick={minus}
+          onClick={onRemoveFromCart}
           className="button button--outline button--circle cart__item-count-minus">
           <svg
             width="10"
@@ -37,7 +57,9 @@ function CartItem({ pizzaName, imageUrl, price, type, size, count }) {
           </svg>
         </div>
         <b>{count}</b>
-        <div onClick={plus} className="button button--outline button--circle cart__item-count-plus">
+        <div
+          onClick={onAddToCart}
+          className="button button--outline button--circle cart__item-count-plus">
           <svg
             width="10"
             height="10"

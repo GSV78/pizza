@@ -29,7 +29,8 @@ const homeReducer = (state = initialState, action) => {
     case GET_PIZZAS_SUCCESS: {
       return {
         ...state,
-        pizzas: [...state.pizzas, ...action.pizzas],
+        // pizzas: [...state.pizzas, ...action.pizzas],
+        pizzas: action.pizzas,
         isLoadedPizzas: true,
       };
     }

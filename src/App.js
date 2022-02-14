@@ -1,8 +1,17 @@
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 import { HeaderContainer } from './components';
 import { HomeContainer, CartContainer } from './Pages';
+import { getPizzas } from './redux/homeReducer';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getPizzas());
+  }, []);
+
   return (
     <div className="wrapper">
       <HeaderContainer />

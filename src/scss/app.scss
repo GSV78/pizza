@@ -52,6 +52,7 @@ body {
 }
 
 .cart {
+  position: relative;
   &__top {
     display: flex;
     justify-content: space-between;
@@ -308,6 +309,28 @@ body {
       margin: 0 auto;
       font-weight: 600;
       font-size: 18px;
+    }
+  }
+
+  &__orderBlank {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 500px;
+    height: 300px;
+    padding: 20px;
+    border: 2px solid orangered;
+    background-color: #ffdf8c;
+    border-radius: 30px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    &.unvisible {
+      display: none;
     }
   }
 }

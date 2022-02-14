@@ -1,13 +1,34 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import emptyCart from '../assets/img/empty-cart.png';
 import { Button, CartItem } from '../components';
+import cn from 'classnames';
+import OrderBlankPopup from '../components/OrderBlankPopup';
 
-function Cart({ chosenPizzas, totalNumberOfPizzasInCart, totalPrice, clearCart }) {
+function Cart({
+  chosenPizzas,
+  totalNumberOfPizzasInCart,
+  totalPrice,
+  clearCart,
+  addPizzaToCart,
+  removePizzaFromCart,
+}) {
+  const [orderBlankPopup, setOrderBlankPopup] = useState(false);
+  const navigate = useNavigate();
+
   let uniqPizza = [];
 
   const onClearCart = () => {
     clearCart();
+  };
+
+  const onOrderClick = () => {
+    setOrderBlankPopup(true);
+  };
+
+  const onQuit = () => {
+    onClearCart();
+    navigate('/');
   };
 
   return !totalNumberOfPizzasInCart ? (
@@ -120,6 +141,8 @@ function Cart({ chosenPizzas, totalNumberOfPizzasInCart, totalPrice, clearCart }
                   type={obj.type}
                   size={obj.size}
                   count={count}
+                  addPizzaToCart={addPizzaToCart}
+                  removePizzaFromCart={removePizzaFromCart}
                 />
               );
             }
@@ -154,11 +177,33 @@ function Cart({ chosenPizzas, totalNumberOfPizzasInCart, totalPrice, clearCart }
               </svg>
               <span>Вернуться назад</span>
             </Link>
-            <Button className="button pay-btn">
-              <span>Оплатить сейчас</span>
+            <Button clickHandle={onOrderClick} className="button pay-btn">
+              <span>Оформить заказ</span>
             </Button>
           </div>
         </div>
+        <OrderBlankPopup
+          className={cn('cart__orderBlank', {
+            unvisible: !orderBlankPopup,
+          })}>
+          <Button clickHandle={onQuit} className="button button--outline button--add go-back-btn">
+            <svg
+              width="8"
+              height="14"
+              viewBox="0 0 8 14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M7 13L1 6.93015L6.86175 1"
+                stroke="#D3D3D3"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+            <span>Вернуться назад</span>
+          </Button>
+        </OrderBlankPopup>
       </div>
     </div>
   );
