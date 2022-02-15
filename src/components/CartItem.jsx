@@ -33,7 +33,7 @@ function CartItem({
       <div className="cart__item-info">
         <h3>{pizzaName}</h3>
         <p>
-          {type}, {size} см.
+          {type} тесто, {size} см.
         </p>
       </div>
       <div className="cart__item-count">

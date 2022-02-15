@@ -10,7 +10,7 @@ function App() {
 
   useEffect(() => {
     dispatch(getPizzas());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="wrapper">

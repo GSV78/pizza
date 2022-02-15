@@ -145,7 +145,7 @@ function Cart({
                   removePizzaFromCart={removePizzaFromCart}
                 />
               );
-            }
+            } else return null;
           })}
         </div>
         <div className="cart__bottom">
