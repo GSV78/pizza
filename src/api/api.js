@@ -1,7 +1,7 @@
 import * as axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'https://GSV78.github.io/pizza',
+  baseURL: '%PUBLIC_URL%',
 });
 
 export const getPizzasFromServer = () => {
