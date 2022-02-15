@@ -1,7 +1,7 @@
 import * as axios from 'axios';
 
 const instance = axios.create({
-  baseURL: '%PUBLIC_URL%',
+  baseURL: '',
 });
 
 export const getPizzasFromServer = () => {
