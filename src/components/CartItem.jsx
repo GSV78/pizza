@@ -9,6 +9,7 @@ function CartItem({
   count,
   addPizzaToCart,
   removePizzaFromCart,
+  deletePositioninInCart,
 }) {
   const chosenPizza = {
     name: pizzaName,
@@ -17,12 +18,17 @@ function CartItem({
     type,
     size,
   };
+
   const onAddToCart = () => {
     addPizzaToCart(chosenPizza);
   };
 
   const onRemoveFromCart = () => {
     removePizzaFromCart(chosenPizza);
+  };
+
+  const onDeletePositioninInCart = () => {
+    deletePositioninInCart(chosenPizza, count);
   };
 
   return (
@@ -81,7 +87,9 @@ function CartItem({
         <b>{price * count} ₽</b>
       </div>
       <div className="cart__item-remove">
-        <div className="button button--outline button--circle">
+        <div
+          onClick={() => onDeletePositioninInCart(chosenPizza, count)}
+          className="button button--outline button--circle">
           <svg
             width="10"
             height="10"

@@ -12,8 +12,10 @@ function Cart({
   clearCart,
   addPizzaToCart,
   removePizzaFromCart,
+  deletePositioninInCart,
 }) {
   const [orderBlankPopup, setOrderBlankPopup] = useState(false);
+
   const navigate = useNavigate();
 
   let uniqPizza = [];
@@ -26,9 +28,8 @@ function Cart({
     setOrderBlankPopup(true);
   };
 
-  const onQuit = () => {
-    onClearCart();
-    navigate('/');
+  const closePopup = () => {
+    setOrderBlankPopup(false);
   };
 
   return !totalNumberOfPizzasInCart ? (
@@ -143,6 +144,7 @@ function Cart({
                   count={count}
                   addPizzaToCart={addPizzaToCart}
                   removePizzaFromCart={removePizzaFromCart}
+                  deletePositioninInCart={deletePositioninInCart}
                 />
               );
             } else return null;
@@ -183,10 +185,13 @@ function Cart({
           </div>
         </div>
         <OrderBlankPopup
+          comeBack={closePopup}
+          clearCart={clearCart}
           className={cn('cart__orderBlank', {
             unvisible: !orderBlankPopup,
-          })}>
-          <Button clickHandle={onQuit} className="button button--outline button--add go-back-btn">
+          })}
+        />
+        {/* <Button clickHandle={onQuit} className="button button--outline button--add go-back-btn">
             <svg
               width="8"
               height="14"
@@ -203,7 +208,7 @@ function Cart({
             </svg>
             <span>Вернуться назад</span>
           </Button>
-        </OrderBlankPopup>
+        </OrderBlankPopup> */}
       </div>
     </div>
   );

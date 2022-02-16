@@ -1,6 +1,11 @@
 import { connect } from 'react-redux';
 import Cart from './Cart';
-import { clearCart, addPizzaToCart, removePizzaFromCart } from '../redux/cartReducer';
+import {
+  clearCart,
+  addPizzaToCart,
+  removePizzaFromCart,
+  deletePositioninInCart,
+} from '../redux/cartReducer';
 
 const mstp = (state) => {
   return {
@@ -10,6 +15,11 @@ const mstp = (state) => {
   };
 };
 
-const CartContainer = connect(mstp, { clearCart, addPizzaToCart, removePizzaFromCart })(Cart);
+const CartContainer = connect(mstp, {
+  clearCart,
+  addPizzaToCart,
+  removePizzaFromCart,
+  deletePositioninInCart,
+})(Cart);
 
 export default CartContainer;
