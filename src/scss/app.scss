@@ -313,35 +313,31 @@ body {
   }
 
   &__orderBlank {
+    transition: all $duration;
     width: 100vw;
     height: 100vh;
-    // padding: 20px;
-    // border: 3px solid orangered;
-    background-color: rgba(#ffdf8c, 0.7);
-    // border-radius: 30px;
+    background-color: rgba(#fff, 0.8);
     position: fixed;
     top: 0;
-    // bottom: 0;
     left: 0;
-    // right: 0;
-    // margin: auto;
-
     &.unvisible {
       display: none;
     }
   }
 }
 
-.orderForm {
+.form {
+  font-size: 16px;
+  font-weight: bold;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  align-items: center;
-  width: 500px;
-  height: 300px;
+  align-items: fs;
+  width: 430px;
+  height: 420px;
   padding: 20px;
   border: 3px solid orangered;
-  background-color: #ffdf8c;
+  background-color: $background;
   border-radius: 30px;
   position: fixed;
   top: 0;
@@ -349,6 +345,57 @@ body {
   left: 0;
   right: 0;
   margin: auto;
+  & h2 {
+    margin-left: 20px;
+  }
+  &__item {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 10px;
+    label {
+      width: 80px;
+    }
+    input {
+      padding: 3px;
+      margin: 5px;
+      width: 180px;
+    }
+    input[type='radio'] {
+      width: 20px;
+    }
+    textarea {
+      resize: none;
+      width: 180px;
+      height: 55px;
+      padding: 3px;
+      margin: 3px;
+    }
+    h3 {
+      margin: 10px;
+    }
+    .radio {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 10px;
+      &.buttons {
+        width: 100px;
+      }
+    }
+  }
+  &__error {
+    max-width: 100px;
+    font-size: 12px;
+    color: orangered;
+  }
+  &__buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    & span {
+      font-size: 18px;
+    }
+  }
 }
 
 .byeMessage {
@@ -356,8 +403,8 @@ body {
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  width: 503px;
-  height: 303px;
+  width: 450px;
+  height: 433px;
   background-color: seagreen;
   position: absolute;
   top: 0;
@@ -370,3 +417,5 @@ body {
     display: none;
   }
 }
+
+@import 'media';

@@ -20,7 +20,7 @@ const validate = (values) => {
 
   if (!values.contactPhone) {
     errors.contactPhone = 'Обязательно заполните';
-  } else if (!/^[0-9]/i.test(values.contactPhone)) {
+  } else if (!/^((8|\+7)[-]?)?(\(?\d{3}\)?[-]?)?[\d\- ]{7,10}$/i.test(values.contactPhone)) {
     errors.contactPhone = 'Неправильный номер телефона';
   }
 
@@ -42,7 +42,7 @@ function OrderBlankPopup(props) {
 
   return (
     <div className={props.className}>
-      <div className="orderForm">
+      <div className="form">
         <h2>Оформление заказа</h2>
         <Formik
           initialValues={{ customerName: '', address: '', contactPhone: '', formOfPayment: 'cash' }}
@@ -53,64 +53,77 @@ function OrderBlankPopup(props) {
           }}>
           {({ errors, touched }) => (
             <Form>
-              <div className="formItem">
+              <div className="form__item">
                 <label htmlFor="customerName">Ваше имя: </label>
-                <Field id="customerName" name="customerName" type="text" />
-                {touched.customerName && errors.customerName ? (
-                  <div className="error">{errors.customerName}</div>
-                ) : null}
-              </div>
-              <div className="formItem">
-                <label htmlFor="address">Адрес доставки: </label>
-                <Field as="textarea" id="address" name="address" />
-                {touched.address && errors.address ? (
-                  <div className="error">{errors.address}</div>
-                ) : null}
-              </div>
-              <div className="formItem">
-                <label htmlFor="contactPhone">Номер телефона: +7</label>
                 <Field
-                  placeholder="96032222333"
-                  id="contactPhone"
+                  name="customerName"
+                  type="text"
+                  // placeholder="Иван"
+                />
+                {touched.customerName && errors.customerName ? (
+                  <div className="form__error">{errors.customerName}</div>
+                ) : null}
+              </div>
+              <div className="form__item">
+                <label htmlFor="address">Адрес доставки: </label>
+                <Field
+                  as="textarea"
+                  name="address"
+                  // placeholder="ул.Ленина, д.1, кв.42"
+                />
+                {touched.address && errors.address ? (
+                  <div className="form__error">{errors.address}</div>
+                ) : null}
+              </div>
+              <div className="form__item">
+                <label htmlFor="contactPhone">Номер телефона: </label>
+                <Field
                   name="contactPhone"
                   type="text"
+                  // placeholder="+796032222333"
                 />
                 {touched.contactPhone && errors.contactPhone ? (
-                  <div className="error">{errors.contactPhone}</div>
+                  <div className="form__error">{errors.contactPhone}</div>
                 ) : null}
-                <div id="my-radio-group">Оплата</div>
               </div>
-              <label>
-                <Field type="radio" name="formOfPayment" value="cash" />
-                Наличными{' '}
-              </label>
-              <label>
-                <Field type="radio" name="formOfPayment" value="card" />
-                Картой
-              </label>
-              <button
-                type="button"
-                onClick={onComeBack}
-                className="button button--outline button--add go-back-btn">
-                <svg
-                  width="8"
-                  height="14"
-                  viewBox="0 0 8 14"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M7 13L1 6.93015L6.86175 1"
-                    stroke="#D3D3D3"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-                <span>Вернуться назад</span>
-              </button>
-              <button type="submit" className="button pay-btn">
-                Сделать заказ
-              </button>
+              <div className="form__item radio">
+                <h3>Оплата:</h3>
+                <div className="radio__buttons">
+                  <label>
+                    <Field type="radio" name="formOfPayment" value="cash" />
+                    Наличными{' '}
+                  </label>
+                  <label>
+                    <Field type="radio" name="formOfPayment" value="card" />
+                    Картой
+                  </label>
+                </div>
+              </div>
+              <div className="form__buttons">
+                <button
+                  type="button"
+                  onClick={onComeBack}
+                  className="button button--outline add__btn go-back-btn">
+                  <svg
+                    width="8"
+                    height="14"
+                    viewBox="0 0 8 14"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M7 13L1 6.93015L6.86175 1"
+                      stroke="#D3D3D3"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                  <span> Вернуться </span>
+                </button>
+                <button type="submit" className="button pay-btn">
+                  <span> Сделать заказ </span>
+                </button>
+              </div>
             </Form>
           )}
         </Formik>

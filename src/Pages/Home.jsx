@@ -17,6 +17,10 @@ function Home({
   ratingSort,
   addPizzaToCart,
 }) {
+  useEffect(() => {
+    getPizzas();
+  }, []);
+
   return (
     <div className="container">
       <div className="content__top">
