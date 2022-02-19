@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import emptyCart from '../assets/img/empty-cart.png';
 import { Button, CartItem } from '../components';
 import cn from 'classnames';
@@ -15,8 +15,6 @@ function Cart({
   deletePositioninInCart,
 }) {
   const [orderBlankPopup, setOrderBlankPopup] = useState(false);
-
-  const navigate = useNavigate();
 
   let uniqPizza = [];
 
